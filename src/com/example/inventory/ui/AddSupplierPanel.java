@@ -2,13 +2,12 @@ package com.example.inventory.ui;
 
 import com.example.inventory.dao.SupplierDAO;
 import com.example.inventory.model.Supplier;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class AddSupplierPanel extends JPanel {
     private JTextField nameField;
@@ -19,20 +18,48 @@ public class AddSupplierPanel extends JPanel {
     public AddSupplierPanel(Connection connection) {
         supplierDAO = new SupplierDAO(connection);
 
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        add(new JLabel("Name:"));
-        nameField = new JTextField();
-        add(nameField);
+        // Add an image at the top
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        ImageIcon imageIcon = new ImageIcon("src/com/example/inventory/assets/img2.jpeg");
+        Image image = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(image));
+        add(imageLabel, gbc);
 
-        add(new JLabel("Email:"));
-        emailField = new JTextField();
-        add(emailField);
+        // Reset gridwidth for other components
+        gbc.gridwidth = 1;
 
-        add(new JLabel("Phone:"));
-        phoneField = new JTextField();
-        add(phoneField);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(new JLabel("Name:"), gbc);
+        gbc.gridx = 1;
+        nameField = new JTextField(20);
+        add(nameField, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(new JLabel("Email:"), gbc);
+        gbc.gridx = 1;
+        emailField = new JTextField(20);
+        add(emailField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(new JLabel("Phone:"), gbc);
+        gbc.gridx = 1;
+        phoneField = new JTextField(20);
+        add(phoneField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         JButton addButton = new JButton("Add Supplier");
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +76,6 @@ public class AddSupplierPanel extends JPanel {
                 }
             }
         });
-        add(addButton);
+        add(addButton, gbc);
     }
 }

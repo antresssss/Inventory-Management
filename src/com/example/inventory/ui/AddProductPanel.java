@@ -2,13 +2,12 @@ package com.example.inventory.ui;
 
 import com.example.inventory.dao.ProductDAO;
 import com.example.inventory.model.Product;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class AddProductPanel extends JPanel {
     private JTextField nameField;
@@ -19,20 +18,52 @@ public class AddProductPanel extends JPanel {
     public AddProductPanel(Connection connection) {
         productDAO = new ProductDAO(connection);
 
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5); // Padding between components
 
-        add(new JLabel("Name:"));
-        nameField = new JTextField();
-        add(nameField);
+        // Add image at the top
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        ImageIcon imageIcon = new ImageIcon("src/com/example/inventory/assets/img4.jpeg"); 
+        Image image = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(image));
+        add(imageLabel, gbc);
 
-        add(new JLabel("Quantity:"));
-        quantityField = new JTextField();
-        add(quantityField);
+        // Reset gridwidth for the rest of the components
+        gbc.gridwidth = 1;
 
-        add(new JLabel("Price:"));
-        priceField = new JTextField();
-        add(priceField);
+        // Add Name Label and TextField
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(new JLabel("Name:"), gbc);
+        gbc.gridx = 1;
+        nameField = new JTextField(20);
+        add(nameField, gbc);
 
+        // Add Quantity Label and TextField
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(new JLabel("Quantity:"), gbc);
+        gbc.gridx = 1;
+        quantityField = new JTextField(20);
+        add(quantityField, gbc);
+
+        // Add Price Label and TextField
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(new JLabel("Price:"), gbc);
+        gbc.gridx = 1;
+        priceField = new JTextField(20);
+        add(priceField, gbc);
+
+        // Add Add Button
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         JButton addButton = new JButton("Add Product");
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +80,6 @@ public class AddProductPanel extends JPanel {
                 }
             }
         });
-        add(addButton);
+        add(addButton, gbc);
     }
 }

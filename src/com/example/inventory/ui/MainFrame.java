@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
         tabbedPane.setFont(new Font("Arial", Font.BOLD, 14)); 
         tabbedPane.setBackground(Color.BLACK); 
         tabbedPane.setForeground(Color.WHITE);  
-        // Customize tab components
+     
         UIManager.put("TabbedPane.selected", Color.DARK_GRAY);  
         UIManager.put("TabbedPane.contentAreaColor", Color.BLACK); 
         UIManager.put("TabbedPane.borderHightlightColor", Color.WHITE); 
